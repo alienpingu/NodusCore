@@ -11,6 +11,11 @@ client.connect()
 // JavascriptWebToken
 var jwt = require('jsonwebtoken');
 const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI DI SISTEMA
+const jwt_decode = require("jwt-decode");
+
+
+
+
 
 
 function registerHandler(req, res) {
@@ -76,7 +81,7 @@ function loginHandler(req, res) {
                   } else {
                     switch (out) {
                       case true:
-                        let token = jwt.sign({ sub: dbUserId }, config.secret, { expiresIn: '7d' })
+                        let token = jwt.sign({ sub: dbUserId }, config.secret, { expiresIn: '30m' })
                         bcrypt.genSalt(saltRounds, function(err, salt) {
                           bcrypt.hash(token, salt, function(err, hash) {
                             client.query(`UPDATE username SET token_user='${hash}' WHERE id_user=${dbUserId}`)
@@ -104,7 +109,59 @@ function loginHandler(req, res) {
       });  
 }
 
+
+function accountHendler(req, res) {
+
+  let token = jwt_decode(req.cookies.sessionTokenNodusCore);
+
+  let id = token.sub;
+
+  client.query(`SELECT token_user FROM username WHERE id_user='${id}'`, (err, dbres) => bcrypt.compare(req.cookies.sessionTokenNodusCore, dbres.rows[0].token_user, (err, out) => {
+     if (out) {  
+          switch (req.body.option) {
+              case 'wik':
+                      client.query(` 
+                              UPDATE username 
+                              SET wik_user='${req.body.wik}' 
+                              WHERE id_user=${id}
+                              `)
+                          .then((dbres) => (dbres) ? 
+                              res
+                                  .status(200)
+                                  .send('Wik aggiornato') 
+                          : null).catch(e => console.error(e.stack))   
+                  break;
+              case 'psw':
+                  if (req.body.psw1 === req.body.psw2) {
+                    bcrypt.genSalt(saltRounds, function(err, salt) {
+                      bcrypt.hash(req.body.psw1, salt, function(err, hash) {
+                        if (hash) {  
+                          client.query(`UPDATE password SET psw_hash='${hash}' WHERE id_hash=${id}`)
+                          .then((dbres) => (dbres) ? res.status(200).send('Password updated') : null)
+                          .catch(e => console.error(e.stack))
+                        }
+                        });
+                    });
+                  } else {
+                    res.status(304).send("Invalid new password")
+                  }
+
+                  break;
+          
+              default:
+                  res.status(305).send("Invalid option in /account")
+                  break;
+          }
+      }   else {
+          res.status(301).send("Invalid client")
+      }
+  }));
+
+
+}
+
 module.exports = {
     loginHandler,
-    registerHandler
+    registerHandler,
+    accountHendler
 };

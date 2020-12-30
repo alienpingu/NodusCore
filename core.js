@@ -58,7 +58,9 @@ app.get('/logout', (req, res) => utilsGet.logoutHandler(req, res));
 
 app.post('/register', (req, res) => utilsPost.registerHandler(req, res));
 
-app.post('/login', (req, res) => utilsPost.loginHandler(req, res))
+app.post('/login', (req, res) => utilsPost.loginHandler(req, res));
+
+app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
 
 
 

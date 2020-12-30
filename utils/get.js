@@ -55,7 +55,7 @@ function logoutHandler(req, res) {
     if (req) {
         res
             .status(200)
-            .cookie('sessionTokenNodusCore', undefined, { maxAge: 900000, httpOnly: true })
+            .cookie('sessionTokenNodusCore', {}, { maxAge: -1, httpOnly: true })
             .redirect('/login');
     }
 };
@@ -65,10 +65,10 @@ function accountHandler(req, res)  {
     
 
      let config = {
-        titlePage: "Home!"
+        titlePage: "Account"
     };
 
-    authRender(req, res, 'home', config);
+    authRender(req, res, 'account', config);
 
 };
 

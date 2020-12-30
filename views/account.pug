@@ -3,11 +3,16 @@ include ./components/header
 body
   h2= titlePage
   form(action="/account" method="POST")
-    label(for="usr")="Username:"
-    input(type= "text" name="usr" value="" minlength="4" required)
-    label(for="psw")="Password:"
-    input(type= "text" name="psw" value="" minlength="4" required)
-    img(src=captchaSrc alt="Don't see captcha? Reload the page pls")
-    label(for="captcha")="Insert captcha:"
-    input(type="text" for="captcha" name="captcha" required)
+    input(type= "hidden" name="option" value="wik")
+    label(for="wik")="Wik:"
+    input(type= "text" name="wik" value="" minlength="4" required)
+    label(for="psw1")="New psw:"
+    input(type="submit")
+  form(action="/account" method="POST")
+    label(for="wik")="Wik:"
+    input(type= "hidden" name="option" value="psw")
+    label(for="psw1")="New psw:"
+    input(type= "password" name="psw1" value="" minlength="4" required)
+    label(for="psw2")="Repeat password:"
+    input(type= "password" name="psw2" value="" minlength="4" required)
     input(type="submit")
