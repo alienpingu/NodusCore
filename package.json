@@ -20,6 +20,7 @@
     "node-gyp": "^7.1.2",
     "nodejs-captcha": "0.0.4",
     "pg": "^8.5.1",
+    "pug": "^3.0.0",
     "rootpath": "^0.1.2",
     "trek-captcha": "^0.4.0"
   }
