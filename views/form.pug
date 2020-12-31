@@ -1,13 +1,17 @@
 include ./components/header
 
-body
-  h2= titlePage
-  form(action=actionPage method="POST")
-    label(for="usr")="Username:"
-    input(type= "text" name="usr" value="" minlength="4" required)
-    label(for="psw")="Password:"
-    input(type= "password" name="psw" value="" minlength="4" required)
-    img(src=captchaSrc alt="Don't see captcha? Reload the page pls")
-    label(for="captcha")="Insert captcha:"
-    input(type="text" for="captcha" name="captcha" required)
-    input(type="submit")
+body(class="bg-mauve")
+  div(id="registration-form" class="container")
+    form(action=actionPage method="POST" class="shadow p-4 rounded border border-light")
+      h2= titlePage
+      div(class="form-group")
+        label(for="usr")="Username"
+        input(class="form-control" type= "text" name="usr" value="" minlength="4" required)
+      div(class="form-group")
+        label(for="psw")="Password"
+        input(class="form-control" type= "password" name="psw" value="" minlength="4" required)
+      img(src=captchaSrc class="mb-2 rounded border border-light" alt="Don't see captcha? Reload the page pls")
+      div(class="form-group")
+        label(for="captcha")="Captcha"
+        input(class="form-control" type="text" for="captcha" name="captcha" required)
+      button(type="submit" class="btn btn-outline-light btn-block btn-lg")="Submit"

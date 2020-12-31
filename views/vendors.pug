@@ -1,6 +1,24 @@
 include ./components/header
 body
-    h2= titlePage
-    for item in data
-        h5= item.id_user
-        p=  item.wik_user
+    include ./components/navbar
+    div(class="container mt-5")
+        h2= titlePage
+        from(class="form-inline" action="/vendors" method="POST")
+            input(class="form-control w-100 m-2" type="text" placeholder="Search a vendor..." required)
+            button(type="submit" class="btn btn-block btn-purple m-2")="Search"
+        table(class="table table-striped")
+            <thead>
+                th(scope="col")="#"
+                th(scope="col")="username"
+                th(scope="col")="wik"
+                th(scope="col")="Profilo"
+            tbody
+                for item in data
+                    tr
+                        th(scope="row")=item.id_user
+                        td="Username"
+                        td=item.wik_user
+                        td
+                            a(class="btn btn-outline-info")="info"
+        
+        

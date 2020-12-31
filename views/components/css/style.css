@@ -4,3 +4,52 @@ html, body {
     box-sizing: border-box;
 }
 
+#registration-form {
+    width: 100vw;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+}
+
+#registration-form form {
+    width: 25rem;
+}
+
+#registration-form form img {
+    width: 100%;
+}
+
+/* Navbar */
+
+.navbar-nav {
+    flex-direction: row;
+}
+
+.nav-item.nav-link {
+    display:inline;
+}
+
+/* Custom Background */
+.bg-mauve {
+    background: linear-gradient(to right, #734b6d, #42275a);
+    color: white;
+}
+
+.bg-purple {
+    background: #563d7c;
+}
+
+.btn-purple{
+    background: #7351a7;
+    color: white;
+
+}
+
+.btn-purple:hover {
+    background: #563d7c;
+    cursor:pointer;
+    color: white;
+
+}
