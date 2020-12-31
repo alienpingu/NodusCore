@@ -1,18 +1,23 @@
 include ./components/header
 
 body
-  h2= titlePage
-  form(action="/account" method="POST")
-    input(type= "hidden" name="option" value="wik")
-    label(for="wik")="Wik:"
-    input(type= "text" name="wik" value="" minlength="4" required)
-    label(for="psw1")="New psw:"
-    input(type="submit")
-  form(action="/account" method="POST")
-    label(for="wik")="Wik:"
-    input(type= "hidden" name="option" value="psw")
-    label(for="psw1")="New psw:"
-    input(type= "password" name="psw1" value="" minlength="4" required)
-    label(for="psw2")="Repeat password:"
-    input(type= "password" name="psw2" value="" minlength="4" required)
-    input(type="submit")
+	include ./components/navbar
+	div(class="container")
+		h2=titlePage
+		form(action="/account" method="POST")
+			input(type="hidden" name="option" value="wik")
+			div(class="form-group")
+				label(for="wik")="Change contact:"
+				input(class="form-control" type= "text" name="wik" value="" minlength="4" required)
+			button(type="submit" value="submit" class="btn btn-purple btn-block")="Salva"
+		form(action="/account" method="POST")
+			input(type="hidden" name="option" value="psw")
+			div(class="form-group")
+				label(for="psw1")="New password"
+				input(class="form-control" type="password" name="psw1" value="" minlength="4" required)
+			div(class="form-group")
+				label(for="psw2")="Repeat password"
+				input(class="form-control" type="password" name="psw2" value="" minlength="4" required)
+			button(type="submit" value="submit" class="btn btn-purple btn-block")="Salva"
+
+

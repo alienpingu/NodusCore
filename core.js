@@ -63,8 +63,6 @@ app.post('/login', (req, res) => utilsPost.loginHandler(req, res));
 
 app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
 
-
-
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)
 })

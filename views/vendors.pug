@@ -16,7 +16,7 @@ body
                 for item in data
                     tr
                         th(scope="row")=item.id_user
-                        td="Username"
+                        td=item.email_user
                         td=item.wik_user
                         td
                             a(class="btn btn-outline-info")="info"

@@ -24,12 +24,21 @@ function authRender(req, res, path, config) {
         // No token
         return false
       } else {
-        client.query(`SELECT token_user FROM username WHERE id_user='${jwt_decode(req.cookies.sessionTokenNodusCore).sub}'`)
+
+        let tmpId = jwt_decode(req.cookies.sessionTokenNodusCore).sub;
+        client.query(`SELECT token_user,wik_user,email_user FROM username WHERE id_user='${tmpId}'`)
             .then(dbres => {
                 if (dbres.rows[0] === undefined) {
                         // No token in db
                         res.status(401).cookie('hcTmp_noduscore', {}, {maxAge: -1}).redirect('/login');
                 } else {
+
+
+                    // Update config with user information
+                    config.wik = dbres.rows[0].wik_user;
+                    config.id = tmpId;
+                    config.email = dbres.rows[0].email_user;
+
                     bcrypt.compare(req.cookies.sessionTokenNodusCore, dbres.rows[0].token_user, (err, out) => 
                     {
                         if (err) {
@@ -38,6 +47,8 @@ function authRender(req, res, path, config) {
                         }   else    {
                                 if (out) {
                                     // OK: Trust token
+                                    console.log(config.titlePage,config.wik, config.id, config.email);
+
                                     res.status(200).cookie('hcTmp_noduscore', {}, {maxAge: -1}).render(path, config);
                                 } else {
                                     // NO: Invalid token
@@ -62,9 +73,8 @@ function logoutHandler(req, res) {
 
 function accountHandler(req, res)  {
 
-    
 
-     let config = {
+    let config = {
         titlePage: "Account"
     };
 
@@ -125,7 +135,7 @@ function homeHandler (req, res) {
 function vendorsHandler (req, res) {
 
     client
-        .query("SELECT id_user, wik_user FROM USERNAME WHERE wik_user IS NOT NULL")
+        .query("SELECT id_user, wik_user,email_user FROM USERNAME WHERE wik_user IS NOT NULL")
         .then(dbres => {
             res.status(200).render('vendors', {
                 titlePage: "Vendors",
