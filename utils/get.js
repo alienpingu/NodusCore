@@ -121,10 +121,26 @@ function homeHandler (req, res) {
     authRender(req, res, 'home', config);
 };
 
+
+function vendorsHandler (req, res) {
+
+    client
+        .query("SELECT id_user, wik_user FROM USERNAME WHERE wik_user IS NOT NULL")
+        .then(dbres => {
+            res.status(200).render('vendors', {
+                titlePage: "Vendors",
+                data: dbres.rows
+            });
+        })
+        .catch(e => console.error(e.stack))
+}
+
 module.exports = {
     logoutHandler,
     accountHandler,
     loginHandler,
     registerHandler,
-    homeHandler
+    homeHandler,
+    vendorsHandler
 };
+

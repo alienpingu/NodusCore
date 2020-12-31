@@ -53,6 +53,7 @@ app.get('/account', (req, res) => utilsGet.accountHandler(req, res));
 
 app.get('/logout', (req, res) => utilsGet.logoutHandler(req, res));
 
+app.get('/vendors', (req, res) => utilsGet.vendorsHandler(req, res));
 
 // POST
 
