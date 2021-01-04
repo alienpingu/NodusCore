@@ -1,23 +1,29 @@
+
 include ./components/header
 
 body
 	include ./components/navbar
 	div(class="container")
 		h2=titlePage
-		form(action="/account" method="POST")
-			input(type="hidden" name="option" value="wik")
-			div(class="form-group")
-				label(for="wik")="Change contact:"
-				input(class="form-control" type= "text" name="wik" value="" minlength="4" required)
-			button(type="submit" value="submit" class="btn btn-purple btn-block")="Salva"
-		form(action="/account" method="POST")
-			input(type="hidden" name="option" value="psw")
-			div(class="form-group")
-				label(for="psw1")="New password"
-				input(class="form-control" type="password" name="psw1" value="" minlength="4" required)
-			div(class="form-group")
-				label(for="psw2")="Repeat password"
-				input(class="form-control" type="password" name="psw2" value="" minlength="4" required)
-			button(type="submit" value="submit" class="btn btn-purple btn-block")="Salva"
-
-
+		.row
+			.col-12.col-md-4
+				img(src="https://via.placeholder.com/150" alt="profile")
+				p=email
+				p="Lorem ipsum dolor sit amet, consectetur adipiscing"
+				a.btn.btn-success(href="/")="Cambia foto"
+			.col-12.col-md-8
+				form(action="/account" method="POST")
+					input(type="hidden" name="option" value="wik")
+					div(class="form-group")
+						label(for="wik")="Change contact:"
+						input(class="form-control" type= "text" name="wik" placeholder=wik value="" minlength="4" required)
+					button(type="submit" value="submit" class="btn btn-success btn-block")="Salva"
+				form(action="/account" method="POST")
+					input(type="hidden" name="option" value="psw")
+					div(class="form-group")
+						label(for="psw1")="New password"
+						input(class="form-control" type="password" name="psw1" value="" minlength="4" required)
+					div(class="form-group")
+						label(for="psw2")="Repeat password"
+						input(class="form-control" type="password" name="psw2" value="" minlength="4" required)
+					button(type="submit" value="submit" class="btn btn-success btn-block")="Salva"

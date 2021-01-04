@@ -1,10 +1,10 @@
 include ./components/header
 
-body(class="bg-mauve")
-  div(id="registration-form" class="container")
-    form(action=actionPage method="POST" class="shadow p-4 rounded border border-light")
+body(class="bg-royal")
+  .container(id="registration-form" class="container")
+    form(action=actionPage method="POST" class="shadow p-4 bg-light rounded")
       h2= titlePage
-      div(class="form-group")
+      div(class=" form-group")
         label(for="usr")="Username"
         input(class="form-control" type= "text" name="usr" value="" minlength="4" required)
       div(class="form-group")
@@ -14,4 +14,4 @@ body(class="bg-mauve")
       div(class="form-group")
         label(for="captcha")="Captcha"
         input(class="form-control" type="text" for="captcha" name="captcha" required)
-      button(type="submit" class="btn btn-outline-light btn-block btn-lg")="Submit"
+      button(type="submit" class="btn btn-success btn-block btn-lg")="Submit"

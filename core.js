@@ -39,6 +39,7 @@ client.connect()
 
 // Utils
 const utilsGet = require ('./utils/get.js');
+
 const utilsPost = require ('./utils/post.js');
 
 // GET
@@ -55,6 +56,10 @@ app.get('/logout', (req, res) => utilsGet.logoutHandler(req, res));
 
 app.get('/vendors', (req, res) => utilsGet.vendorsHandler(req, res));
 
+app.get('/shop', (req, res) => utilsGet.shopHandler(req, res));
+
+app.get('/product', (req, res) => utilsGet.productHandler(req, res));
+
 // POST
 
 app.post('/register', (req, res) => utilsPost.registerHandler(req, res));
@@ -64,5 +69,7 @@ app.post('/login', (req, res) => utilsPost.loginHandler(req, res));
 app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
 
 app.listen(port, () => {
+
   console.log(`Server listening at http://localhost:${port}`)
+
 })

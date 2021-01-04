@@ -1,0 +1,79 @@
+include ./components/header
+body
+	include ./components/navbar
+	.container
+		h1=titlePage
+		hr
+		.row
+			.col-12.col-md-8
+				table(class="table table-striped")
+							<thead>
+								th(scope="col")="#"
+								th(scope="col")="name"
+								th(scope="col")="desc"
+								th(scope="col")="price"
+								th(scope="col")="action"
+							tbody
+								for item in data
+									tr
+										th(scope="row")=item.id_pr
+										td=item.name_pr
+										td=item.desc_pr
+										td=item.price_pr
+										td
+											a(class="btn btn-outline-info")="info"
+
+			.col-12.col-md-4
+				form(action="/addproduct" method="POST")
+					h3="Add new product"
+					div(class=" form-group")
+						label(for="name")="Name of product"
+						input(class="form-control" type= "text" name="name" value="" minlength="4" required)
+					div(class="form-group")
+						label(for="desc")="Decription of product"
+						input(class="form-control" type= "text" name="desc" value="" minlength="20" required)
+					p="Add photo of your product"
+					div(class="custom-file mb-3")
+						input(class="custom-file-input" type= "file" name="photo" value="" minlength="4" accept=".jpg,.jpeg,.png, .gif" required)
+						label.custom-file-label(for="photo")="Select a pic"
+					p="Insert 3 quantity and 3 price for your product"
+					.row
+						.col
+							.form-group
+								label.sr-only(for="q1")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="grams"
+									input.form-control(type="text" name="q1" required)
+							.form-group
+								label.sr-only(for="q2")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="grams"
+									input.form-control(type="text" name="q2" required)
+							.form-group
+								label.sr-only(for="q3")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="grams"
+									input.form-control(type="text" name="q3" required)
+						.col
+							.form-group
+								label.sr-only(for="p1")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="$"
+									input.form-control(type="text" name="p1" required)
+							.form-group
+								label.sr-only(for="p2")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="$"
+									input.form-control(type="text" name="p2" required)
+							.form-group
+								label.sr-only(for="p3")
+								.input-group.mb-2
+									.input-group-prepend
+										.input-group-text="$"
+									input.form-control(type="text" name="p3" required)
+					button.btn.btn-success.btn-block(type="submit")="Submit"

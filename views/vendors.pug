@@ -1,7 +1,7 @@
 include ./components/header
 body
     include ./components/navbar
-    div(class="container mt-5")
+    div(class="container")
         h2= titlePage
         from(class="form-inline" action="/vendors" method="POST")
             input(class="form-control w-100 m-2" type="text" placeholder="Search a vendor..." required)

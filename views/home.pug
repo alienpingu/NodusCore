@@ -1,6 +1,36 @@
 include ./components/header
-
 body
-    h2=titlePage
-    a(href="/logout")="logout"
-    a(href="/account")="account"
+	include ./components/navbar
+	.hero.mt-5
+		h1.title="RoyalPlug"
+		p.text-muted="Safe & Simple"
+		.btn.btn-success="About us"
+		.wave
+	.container#home
+		.row.text-center
+			.col-12.col-md-4
+				h3="Shop"
+				p="See all products in one page"
+				a.btn.btn-success(href="/shop")="View"
+			.col-12.col-md-4
+				h3="Vendors"
+				p="See all vednors in one page"
+				a.btn.btn-success(href="/vendors")="View"
+			.col-12.col-md-4
+				h3="Consulting"
+				p="Consulting service for all your order"
+				a.btn.btn-success(href="/about")="View"
+		.row
+			.col-12.col-md-4
+				h2="About us"
+
+				img(src="https://via.placeholder.com/150" alt="schema")
+			.col-12.col-md-8
+				h3="Our service consist in:"
+				ul.list-group.list-group-flush
+					li.list-group-item="Consulting"
+					li.list-group-item="Escrow"
+					li.list-group-item="Custumer care"
+					li.list-group-item="Safe & Simple"
+
+

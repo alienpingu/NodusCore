@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // JsonWebToken
 const jwt_decode = require("jwt-decode");
-// Path
+// Path 
 var path = require('path');
 // Node Postgres
 const { Client } = require('pg')
@@ -145,12 +145,40 @@ function vendorsHandler (req, res) {
         .catch(e => console.error(e.stack))
 }
 
+
+function shopHandler (req, res) {
+
+    res.status(200).send("OK")
+}
+
+function productHandler (req, res) {
+
+        let setting = {
+            titlePage:"Product"
+        }
+
+        client
+            .query("SELECT id_pr, name_pr, desc_pr, price_pr, id_vend FROM product")
+            .then(dbres => {
+                setting.data = dbres.rows;
+                console.log(setting.data);
+                authRender(req, res, 'product', setting);
+            })
+            .catch(e => console.error(e.stack))
+
+    
+
+}
+
 module.exports = {
     logoutHandler,
     accountHandler,
     loginHandler,
     registerHandler,
     homeHandler,
-    vendorsHandler
+    vendorsHandler,
+    shopHandler,
+    productHandler
+
 };
 

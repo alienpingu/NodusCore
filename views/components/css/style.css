@@ -4,6 +4,15 @@ html, body {
     box-sizing: border-box;
 }
 
+
+/*General*/
+
+.container:not(#home) {
+    padding-top: 100px;
+}
+
+/*Login*/
+
 #registration-form {
     width: 100vw;
     height: 100vh;
@@ -31,25 +40,21 @@ html, body {
     display:inline;
 }
 
+/*Home*/
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50vh;
+    margin: 0;
+}
+
 /* Custom Background */
-.bg-mauve {
-    background: linear-gradient(to right, #734b6d, #42275a);
-    color: white;
-}
-
-.bg-purple {
-    background: #563d7c;
-}
-
-.btn-purple{
-    background: #7351a7;
-    color: white;
-
-}
-
-.btn-purple:hover {
-    background: #563d7c;
-    cursor:pointer;
-    color: white;
-
+.bg-royal {
+    background: #141E30;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
