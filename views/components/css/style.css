@@ -11,22 +11,24 @@ html, body {
     padding-top: 100px;
 }
 
+
 /*Login*/
 
-#registration-form {
+#formWrapper {
+    padding-top: 100px;
     width: 100vw;
     height: 100vh;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
 }
 
-#registration-form form {
+#formWrapper form {
     width: 25rem;
 }
 
-#registration-form form img {
+#formWrapper form img {
     width: 100%;
 }
 

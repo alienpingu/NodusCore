@@ -23,19 +23,37 @@ var jwt = require('jsonwebtoken');
 const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI DI SISTEMA
 // JWT Decode
 const jwt_decode = require("jwt-decode");
+
+var busboy = require('connect-busboy'); //middleware for form/file upload
+var fs = require('fs-extra');       //File System - for file manipulation
+
+/*************************END DEP****************************/
+
+
+
 // Framework used from the app
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ 
+	extended: false,
+	defer: true 
+}));
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.use(cors());
+app.use(busboy());
+app.use(express.static(path.join(__dirname, 'public')));
 // Node Postgres
 const { Client } = require('pg')
 var connectionString = "postgresql://postgres:postgres@localhost:5432/postgres"; // CONTENUTI DA METTERE NELLE VARIABILI DI SISTEMA
+
 const client = new Client({
   connectionString
 })
 client.connect()
 
+
+
+
+/*************************MAIN CORE****************************/
 
 // Utils
 const utilsGet = require ('./utils/get.js');
@@ -60,6 +78,8 @@ app.get('/shop', (req, res) => utilsGet.shopHandler(req, res));
 
 app.get('/product', (req, res) => utilsGet.productHandler(req, res));
 
+app.get('/upload', (req, res) => utilsGet.uploadHandler(req, res));
+
 // POST
 
 app.post('/register', (req, res) => utilsPost.registerHandler(req, res));
@@ -67,6 +87,13 @@ app.post('/register', (req, res) => utilsPost.registerHandler(req, res));
 app.post('/login', (req, res) => utilsPost.loginHandler(req, res));
 
 app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
+
+app.post('/upload', (req, res) => utilsPost.uploadHandler(req, res));
+
+
+
+
+
 
 app.listen(port, () => {
 

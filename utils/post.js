@@ -14,7 +14,9 @@ client.connect()
 var jwt = require('jsonwebtoken');
 const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI DI SISTEMA
 const jwt_decode = require("jwt-decode");
-
+// img2base64
+const imageToBase64 = require('image-to-base64');
+var fs = require('fs-extra');       //File System - for file manipulation   
 
 
 
@@ -188,6 +190,11 @@ function accountHendler(req, res) {
 
 function addProduct(req, res, id_session) {
 
+    let data = req.body;
+    console.log(req)
+    imageToBase64(data.photo.files[0])
+        .then((response) => data.photo = response)
+        .catch((e) => console.log(e))
 
 
     let queryTxt = `
@@ -199,10 +206,10 @@ function addProduct(req, res, id_session) {
 			id_vend
 		) 
 		VALUES (
-			'yolo', 
-			'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-			'base64',
-			'[[50,50],[150,125],[500,375]]',
+			'${data.name}', 
+			'${data.desc}',
+			'${data.photo}',
+			'[[${data.q1},${data.p1}],[${data.q2},${data.p2}],[${data.q3},${data.p3}]]',
 			'${id_session}'
 		)
 	`
@@ -211,13 +218,28 @@ function addProduct(req, res, id_session) {
         .query(queryTxt)
         .then((dbres) => (dbres) ? res.status(200).send('Product added') : null)
         .catch(e => console.error(e.stack))
+}
 
+function uploadHandler(req, res) {
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename);
 
-
+        //Path where image will be uploaded
+        fstream = fs.createWriteStream(__dirname + '/img/' + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {    
+            console.log("Upload Finished of " + filename);              
+            res.send('ok');           //where to go next
+        });
+    });
+    
 }
 
 module.exports = {
     loginHandler,
     registerHandler,
-    accountHendler
+    accountHendler,
+    uploadHandler
 };

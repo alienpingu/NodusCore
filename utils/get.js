@@ -78,7 +78,7 @@ function accountHandler(req, res)  {
         titlePage: "Account"
     };
 
-    authRender(req, res, 'account', config);
+    authRender(req, res, 'account', config); 
 
 };
 
@@ -136,12 +136,11 @@ function vendorsHandler (req, res) {
 
     client
         .query("SELECT id_user, wik_user,email_user FROM USERNAME WHERE wik_user IS NOT NULL")
-        .then(dbres => {
-            res.status(200).render('vendors', {
-                titlePage: "Vendors",
+        .then(dbres => authRender(req, res, 'vendors', {
+                titlePage:"Vendors",
                 data: dbres.rows
-            });
-        })
+            })
+        )
         .catch(e => console.error(e.stack))
 }
 
@@ -170,6 +169,12 @@ function productHandler (req, res) {
 
 }
 
+function uploadHandler (req, res) {
+
+    res.status(200).render('upload', {});
+    
+}
+
 module.exports = {
     logoutHandler,
     accountHandler,
@@ -178,7 +183,8 @@ module.exports = {
     homeHandler,
     vendorsHandler,
     shopHandler,
-    productHandler
+    productHandler,
+    uploadHandler
 
 };
 

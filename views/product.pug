@@ -24,7 +24,8 @@ body
 											a(class="btn btn-outline-info")="info"
 
 			.col-12.col-md-4
-				form(action="/addproduct" method="POST")
+				form(action="/account" method="POST")
+					input(type="hidden" name="option" value="addPr")
 					h3="Add new product"
 					div(class=" form-group")
 						label(for="name")="Name of product"
