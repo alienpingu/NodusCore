@@ -160,7 +160,6 @@ function productHandler (req, res) {
             .query("SELECT id_pr, name_pr, desc_pr, price_pr, id_vend FROM product")
             .then(dbres => {
                 setting.data = dbres.rows;
-                console.log(setting.data);
                 authRender(req, res, 'product', setting);
             })
             .catch(e => console.error(e.stack))

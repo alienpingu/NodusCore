@@ -24,8 +24,7 @@ body
 											a(class="btn btn-outline-info")="info"
 
 			.col-12.col-md-4
-				form(action="/account" method="POST")
-					input(type="hidden" name="option" value="addPr")
+				form(action="/product" method="POST" enctype="multipart/form-data")
 					h3="Add new product"
 					div(class=" form-group")
 						label(for="name")="Name of product"
@@ -35,7 +34,7 @@ body
 						input(class="form-control" type= "text" name="desc" value="" minlength="20" required)
 					p="Add photo of your product"
 					div(class="custom-file mb-3")
-						input(class="custom-file-input" type= "file" name="photo" value="" minlength="4" accept=".jpg,.jpeg,.png, .gif" required)
+						input(class="custom-file-input" type="file" name="photo" accept=".jpg,.jpeg,.png, .gif" required)
 						label.custom-file-label(for="photo")="Select a pic"
 					p="Insert 3 quantity and 3 price for your product"
 					.row

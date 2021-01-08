@@ -84,7 +84,6 @@ app.get('/shop', (req, res) => utilsGet.shopHandler(req, res));
 
 app.get('/product', (req, res) => utilsGet.productHandler(req, res));
 
-app.get('/upload', (req, res) => utilsGet.uploadHandler(req, res));
 
 // POST
 
@@ -93,6 +92,12 @@ app.post('/register', (req, res) => utilsPost.registerHandler(req, res));
 app.post('/login', (req, res) => utilsPost.loginHandler(req, res));
 
 app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
+
+app.post('/product', upload.single('photo'), (req, res) => utilsPost.productHandler(req, res));
+
+
+// DEV test ROUTE 
+app.get('/upload', (req, res) => utilsGet.uploadHandler(req, res));
 
 app.post('/upload', upload.single('photo'), (req, res) => utilsPost.uploadHandler(req, res));
 

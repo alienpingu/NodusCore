@@ -14,8 +14,6 @@ client.connect()
 var jwt = require('jsonwebtoken');
 const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI DI SISTEMA
 const jwt_decode = require("jwt-decode");
-// img2base64
-const imageToBase64 = require('image-to-base64');
 
 
 
@@ -168,14 +166,6 @@ function accountHendler(req, res) {
                     }
 
                     break;
-
-                case 'addPr':
-
-                	addProduct(req, res, id);
-
-                	break;
-
-
                 default:
                     res.status(305).send("Invalid option in /account")
                     break;
@@ -189,36 +179,49 @@ function accountHendler(req, res) {
 }
 
 
-function addProduct(req, res, id_session) {
+function productHandler(req, res/*, id_session*/) {
 
-    let data = req.body;
-    console.log(req)
+
     
 
-    // pic 2 base64
+    let data = req.body;
+
+    data.photo = req.file.buffer.toString('base64');
 
 
-    let queryTxt = `
-		INSERT INTO product (
-			name_pr,
-		 	desc_pr,
-			photo_pr,
-			price_pr,
-			id_vend
-		) 
-		VALUES (
-			'${data.name}', 
-			'${data.desc}',
-			'${data.photo}',
-			'[[${data.q1},${data.p1}],[${data.q2},${data.p2}],[${data.q3},${data.p3}]]',
-			'${id_session}'
-		)
-	`
+    if (jwt_decode(req.cookies.sessionTokenNodusCore)) {
+        let id_session = jwt_decode(req.cookies.sessionTokenNodusCore).sub;
+
+        let newProduct = `
+            INSERT INTO product (
+                name_pr,
+                desc_pr,
+                photo_pr,
+                price_pr,
+                id_vend
+            ) 
+            VALUES (
+                '${data.name}', 
+                '${data.desc}',
+                '${data.photo}',
+                '[[${data.q1},${data.p1}],[${data.q2},${data.p2}],[${data.q3},${data.p3}]]',
+                '${id_session}'
+            )
+        `
 
     client
-        .query(queryTxt)
-        .then((dbres) => (dbres) ? res.status(200).send('Product added') : null)
-        .catch(e => console.error(e.stack))
+        .query(newProduct)
+            .then((dbres) => res.status(200).send('Product added'))
+            .catch(e => console.error(e.stack))
+
+    } else {
+        res.status(401).redirect('/login');
+
+    }
+
+
+
+
 }
 
 uploadHandler = (req, res) =>  (req.file) ? res.status(200).send(`<img src="data:image/png;base64,${req.file.buffer.toString('base64')}" alt="base64img" />`) : null
@@ -227,5 +230,6 @@ module.exports = {
     loginHandler,
     registerHandler,
     accountHendler,
-    uploadHandler
+    uploadHandler,
+    productHandler
 };
