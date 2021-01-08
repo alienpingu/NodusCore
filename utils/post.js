@@ -16,7 +16,8 @@ const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI D
 const jwt_decode = require("jwt-decode");
 // img2base64
 const imageToBase64 = require('image-to-base64');
-var fs = require('fs-extra');       //File System - for file manipulation   
+
+
 
 
 
@@ -221,20 +222,8 @@ function addProduct(req, res, id_session) {
 }
 
 function uploadHandler(req, res) {
-    var fstream;
-    req.pipe(req.busboy);
-    req.busboy.on('file', function (fieldname, file, filename) {
-        console.log("Uploading: " + filename);
-
-        //Path where image will be uploaded
-        fstream = fs.createWriteStream(__dirname + '/img/' + filename);
-        file.pipe(fstream);
-        fstream.on('close', function () {    
-            console.log("Upload Finished of " + filename);              
-            res.send('ok');           //where to go next
-        });
-    });
-    
+    console.log(req.file);
+    res.status(200).send('OK');
 }
 
 module.exports = {
