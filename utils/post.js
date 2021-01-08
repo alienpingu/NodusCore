@@ -193,9 +193,9 @@ function addProduct(req, res, id_session) {
 
     let data = req.body;
     console.log(req)
-    imageToBase64(data.photo.files[0])
-        .then((response) => data.photo = response)
-        .catch((e) => console.log(e))
+    
+
+    // pic 2 base64
 
 
     let queryTxt = `
@@ -221,10 +221,7 @@ function addProduct(req, res, id_session) {
         .catch(e => console.error(e.stack))
 }
 
-function uploadHandler(req, res) {
-    console.log(req.file);
-    res.status(200).send('OK');
-}
+uploadHandler = (req, res) =>  (req.file) ? res.status(200).send(`<img src="data:image/png;base64,${req.file.buffer.toString('base64')}" alt="base64img" />`) : null
 
 module.exports = {
     loginHandler,
