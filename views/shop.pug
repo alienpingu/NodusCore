@@ -1,0 +1,15 @@
+include ./components/header
+
+body
+	include ./components/navbar
+	.container
+		h2=titlePage
+		.card-deck
+			for item in data
+				.card.bg-dark.text-white.col-md-4
+					img.card-img(src=`data:image/png;base64,${item.photo_pr}` alt="card-img")
+					.card-img-overlay
+						h5.card-title=item.name_pr
+						p.card-text=item.desc_pr
+						p.card=item.price_pr
+

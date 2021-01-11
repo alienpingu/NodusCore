@@ -186,8 +186,7 @@ function productHandler(req, res/*, id_session*/) {
 
     let data = req.body;
 
-    data.photo = req.file.buffer.toString('base64');
-
+    let base64img = req.file.buffer.toString('base64');
 
     if (jwt_decode(req.cookies.sessionTokenNodusCore)) {
         let id_session = jwt_decode(req.cookies.sessionTokenNodusCore).sub;
@@ -203,8 +202,8 @@ function productHandler(req, res/*, id_session*/) {
             VALUES (
                 '${data.name}', 
                 '${data.desc}',
-                '${data.photo}',
-                '[[${data.q1},${data.p1}],[${data.q2},${data.p2}],[${data.q3},${data.p3}]]',
+                '${base64img}',
+                '{{${data.q1},${data.p1}},{${data.q2},${data.p2}},{${data.q3},${data.p3}}}',
                 '${id_session}'
             )
         `

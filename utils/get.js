@@ -147,7 +147,20 @@ function vendorsHandler (req, res) {
 
 function shopHandler (req, res) {
 
-    res.status(200).send("OK")
+    let setting = {
+            titlePage:"Shop"
+    }
+
+    client
+            .query("SELECT id_pr, name_pr, desc_pr, price_pr, id_vend, photo_pr FROM product")
+            .then(dbres => {
+
+                setting.data = dbres.rows;
+
+                authRender(req, res, 'shop', setting);
+            })
+            .catch(e => console.error(e.stack))
+
 }
 
 function productHandler (req, res) {
@@ -156,15 +169,21 @@ function productHandler (req, res) {
             titlePage:"Product"
         }
 
-        client
-            .query("SELECT id_pr, name_pr, desc_pr, price_pr, id_vend FROM product")
-            .then(dbres => {
-                setting.data = dbres.rows;
-                authRender(req, res, 'product', setting);
-            })
-            .catch(e => console.error(e.stack))
+        try {
+            let tmpId = jwt_decode(req.cookies.sessionTokenNodusCore).sub;
+            let queryTxt = `SELECT id_pr, name_pr, desc_pr, price_pr, id_vend FROM product WHERE id_vend = ${tmpId}`;
 
-    
+            client
+                .query(queryTxt)
+                .then(dbres => {
+                    setting.data = dbres.rows;
+                    authRender(req, res, 'product', setting);
+                })
+                .catch(e => console.error(e.stack))
+
+        } catch (e) {
+            res.status(400).redirect('/login');
+        }    
 
 }
 

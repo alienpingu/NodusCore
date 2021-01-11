@@ -82,7 +82,7 @@ app.get('/vendors', (req, res) => utilsGet.vendorsHandler(req, res));
 
 app.get('/shop', (req, res) => utilsGet.shopHandler(req, res));
 
-app.get('/product', (req, res) => utilsGet.productHandler(req, res));
+app.get('/product', upload.single('photo'),(req, res) => utilsGet.productHandler(req, res));
 
 
 // POST
