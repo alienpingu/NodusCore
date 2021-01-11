@@ -95,6 +95,8 @@ app.post('/account', (req, res) => utilsPost.accountHendler(req, res));
 
 app.post('/product', upload.single('photo'), (req, res) => utilsPost.productHandler(req, res));
 
+app.post('/shop', (req, res) => utilsPost.shopHandler(req, res));
+
 
 // DEV test ROUTE 
 app.get('/upload', (req, res) => utilsGet.uploadHandler(req, res));

@@ -16,6 +16,7 @@ const config = require('config.json'); // CONTENUTI DA METTERE NELLE VARIABILI D
 const jwt_decode = require("jwt-decode");
 
 
+const utilsGet = require('./get.js');
 
 
 
@@ -223,6 +224,22 @@ function productHandler(req, res/*, id_session*/) {
 
 }
 
+function shopHandler (req, res) {
+
+    let setting = {
+        titlePage: 'Shop'
+    }
+    console.log(req.body.search)
+    let queryTxt = `SELECT id_pr, name_pr, desc_pr, price_pr, id_vend, photo_pr FROM product WHERE '${req.body.search}' LIKE '%' || name_pr || '%'`
+    client
+        .query(queryTxt)
+        .then((dbres) => {
+            setting.data = dbres.rows;
+            utilsGet.authRender(req, res, 'shop', setting);
+        }).catch(e => console.error(e.stack))
+}
+
+
 uploadHandler = (req, res) =>  (req.file) ? res.status(200).send(`<img src="data:image/png;base64,${req.file.buffer.toString('base64')}" alt="base64img" />`) : null
 
 module.exports = {
@@ -230,5 +247,6 @@ module.exports = {
     registerHandler,
     accountHendler,
     uploadHandler,
-    productHandler
+    productHandler,
+    shopHandler
 };

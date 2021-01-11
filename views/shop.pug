@@ -2,14 +2,26 @@ include ./components/header
 
 body
 	include ./components/navbar
-	.container
+	.container#shop
 		h2=titlePage
-		.card-deck
+
+		form(action="/shop" method="POST")
+			input.shadow-sm.w-100(id="search" type="text" placeholder="Search a product..." name="search")
+			// input(type="submit" value="submit" class="btn btn-success btn-block btn-lg")
+			button(type="button" value="submit" minlength="4" required)="Submit"
+		.card-deck.row.pt-3
 			for item in data
-				.card.bg-dark.text-white.col-md-4
+				.card.col-md-4.shadow-sm
 					img.card-img(src=`data:image/png;base64,${item.photo_pr}` alt="card-img")
-					.card-img-overlay
+					.card-body
 						h5.card-title=item.name_pr
 						p.card-text=item.desc_pr
-						p.card=item.price_pr
+						ul.price-list
+							li=`${item.price_pr[0][0]}g `
+								span.badge.badge-primary.badge-pill=`${item.price_pr[0][1]}€`
+							li=`${item.price_pr[1][0]}g `
+								span.badge.badge-primary.badge-pill=`${item.price_pr[1][1]}€`
+							li=`${item.price_pr[2][0]}g `
+								span.badge.badge-primary.badge-pill=`${item.price_pr[2][1]}€`
+
 

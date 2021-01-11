@@ -202,7 +202,8 @@ module.exports = {
     vendorsHandler,
     shopHandler,
     productHandler,
-    uploadHandler
+    uploadHandler,
+    authRender
 
 };
 
