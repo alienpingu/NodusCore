@@ -1,24 +1,22 @@
 include ./components/header
 body
-    include ./components/navbar
-    div(class="container")
-        h2= titlePage
-        from(class="form-inline" action="/vendors" method="POST")
-            input(class="form-control w-100 m-2" type="text" placeholder="Search a vendor..." required)
-            button(type="submit" class="btn btn-block btn-success m-2")="Search"
-        table(class="table table-striped")
-            <thead>
-                th(scope="col")="#"
-                th(scope="col")="username"
-                th(scope="col")="wik"
-                th(scope="col")="Profilo"
-            tbody
-                for item in data
-                    tr
-                        th(scope="row")=item.id_user
-                        td=item.email_user
-                        td=item.wik_user
-                        td
-                            a(class="btn btn-outline-info")="info"
-        
-        
+	include ./components/navbar
+	div(class="container")
+		h2= titlePage
+		form.form-row.shadow-sm(action="/vendors" method="POST")
+			input.col.col-md-10.form-control(id="search" type="text" placeholder="Search a product..." name="search")
+			button.col.col-md-2(type="submit" value="submit" class="btn btn-success")="Submit"
+		table(class="table table-striped")
+			<thead>
+				th(scope="col")="#"
+				th(scope="col")="username"
+				th(scope="col")="wik"
+				th(scope="col")="Profilo"
+			tbody
+				for item in data
+					tr
+						th(scope="row")=item.id_user
+						td=item.email_user
+						td=item.wik_user
+						td
+							a(class="btn btn-outline-info")="info"

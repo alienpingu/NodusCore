@@ -55,6 +55,14 @@ html, body {
 }
 
 /*Shop*/
+#shop form {
+    margin: 14px;
+}
+
+#shop .card-deck .card {
+    height:100%;
+}
+
 #shop .card-deck .card .card-body {
     display: flex;
     flex-direction: column;

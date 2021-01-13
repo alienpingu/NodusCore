@@ -229,13 +229,25 @@ function shopHandler (req, res) {
     let setting = {
         titlePage: 'Shop'
     }
-    console.log(req.body.search)
-    let queryTxt = `SELECT id_pr, name_pr, desc_pr, price_pr, id_vend, photo_pr FROM product WHERE '${req.body.search}' LIKE '%' || name_pr || '%'`
+    let queryTxt = `SELECT id_pr, name_pr, desc_pr, price_pr, id_vend, photo_pr FROM product WHERE '${req.body.search}' like '%' || name_pr || '%' OR name_pr like '%${req.body.search}%'`
     client
         .query(queryTxt)
         .then((dbres) => {
             setting.data = dbres.rows;
             utilsGet.authRender(req, res, 'shop', setting);
+        }).catch(e => console.error(e.stack))
+}
+
+function vendorsHandler (req, res) {
+    let setting = {
+        titlePage: "Vendors"
+    }
+    let queryTxt = `select email_user, id_user, wik_user from username where wik_user like '%${req.body.search}%';`
+    client
+        .query(queryTxt)
+        .then((dbres) => {
+            setting.data = dbres.rows;
+            utilsGet.authRender(req, res, 'vendors', setting);
         }).catch(e => console.error(e.stack))
 }
 
@@ -248,5 +260,6 @@ module.exports = {
     accountHendler,
     uploadHandler,
     productHandler,
-    shopHandler
+    shopHandler,
+    vendorsHandler
 };
