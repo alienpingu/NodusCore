@@ -202,16 +202,15 @@ function detailsHandler(req, res) {
         titlePage:"Product"
     }
 
-    console.log("PRID: ",query)
-
     try {
         let tmpId = jwt_decode(req.cookies.sessionTokenNodusCore).sub;
-        let queryTxt = `SELECT id_pr, name_pr, desc_pr, price_pr, id_vend FROM product WHERE id_pr = ${query.pr}`;
+        let queryTxt = `SELECT * FROM product WHERE id_pr = ${query.pr}`;
 
         client
             .query(queryTxt)
             .then(dbres => {
                 setting.data = dbres.rows[0];
+
                 authRender(req, res, 'details', setting);
             })
             .catch(e => console.error(e.stack))

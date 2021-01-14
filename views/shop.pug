@@ -11,7 +11,7 @@ body
 		.card-deck.row
 			for item in data
 				.col.col-md-4.mb-3
-					.card.shadow-sm
+					a.card.shadow-sm.text-decoration-none.text-dark(href=`/details/?pr=${item.id_pr}`)
 						img.card-img(src=`data:image/png;base64,${item.photo_pr}` alt="card-img")
 						.card-body
 							h5.card-title=item.name_pr
